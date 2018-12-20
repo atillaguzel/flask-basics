@@ -4,6 +4,7 @@ from werkzeug import generate_password_hash, check_password_hash
 import geocoder
 import urllib3
 import json
+import os
 
 
 db = SQLAlchemy()
@@ -39,7 +40,7 @@ class Place(object):
     return urllib3.urlparse.urljoin("http://en.wikipedia.org/wiki/", slug.replace(' ', '_'))
 
   def address_to_latlng(self, address):
-    g = geocoder.google(address)
+    g = geocoder.mapbox(address, key=os.environ['MAPBOX_ACCESS_TOKEN'])
     return (g.lat, g.lng)
 
   def query(self, address):
