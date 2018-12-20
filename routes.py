@@ -76,7 +76,7 @@ def home():
   form = AddressForm()
 
   places = []
-  my_coordinates = (37.4221, -122.0844)
+  my_coordinates = (51.426017, -0.336140)
 
   if request.method == 'POST':
     if form.validate() == False:
