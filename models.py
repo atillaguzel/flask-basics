@@ -44,10 +44,11 @@ class Place(object):
 
   def query(self, address):
     lat, lng = self.address_to_latlng(address)
-
     query_url = 'https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=5000&gscoord={0}%7C{1}&gslimit=20&format=json'.format(lat, lng)
-    g = urllib3.urlopen(query_url)
-    results = g.read()
+    http = urllib3.PoolManager()
+    g = http.request('GET', query_url)
+    # g = urllib3.urlopen(query_url)
+    results = g.data
     g.close()
 
     data = json.loads(results)
